@@ -4,14 +4,14 @@ This project demonstrates the process of pretraining a GPT-2 model on a dataset 
 ## How It Works
 1. **Dataset Preparation:**
 
-First, we load the Shakespeare dialogues dataset from the Hugging Face datasets library. This dataset contains text from Shakespeare's works, which we will use to fine-tune the GPT-2 model.
+First, we load the Shakespeare dialogues dataset from the Hugging Face datasets library. This dataset contains text from Shakespeare's content, which we will use to fine-tune the GPT-2 model.
 ```python
 from datasets import load_dataset
 dataset = load_dataset("Trelis/tiny-shakespeare")
 ```
 2. **Data Preprocessing:**
 
-We preprocess the data by tokenizing the text and padding it to a fixed length. Tokenization converts the text into a format that the GPT-2 model can understand, while padding ensures that all sequences are the same length for efficient processing.
+We preprocess the data by tokenizing the text and padding it to a fixed length. Tokenization converts the text into a format that the GPT-2 model can understand, padding ensures that all sequences are the same length for efficient processing.
 
 3. **Model Training:**
 
@@ -43,7 +43,7 @@ tokenizer.push_to_hub("Pretrained-GPT2")
 
 5. **Streamlit Interface:**
    
-Deploy a Streamlit interface for generating text using the pretrained GPT-2 model. Streamlit provides an easy way to create web applications with Python, allowing users to interact with the model by entering a prompt and receiving generated text in response.
+Deploy a Streamlit interface for generating text using the pretrained GPT-2 model. Streamlit provides an easy way to create web applications, allowing users to interact with the model by entering a prompt and receiving generated text in response.
 
 6. **Deployement:**
 
