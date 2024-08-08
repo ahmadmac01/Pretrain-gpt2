@@ -1,25 +1,28 @@
 ## Pretrained Distill GPT-2 
-This project demonstrates the process of pretraining a GPT-2 model on a dataset of Shakespeare dialogues, pushing the model to Hugging Face Hub, and deploying a Streamlit interface for text generation. The model `ahmadmac/Pretrained-GPT2` is trained on the `Trelis/tiny-shakespeare` dataset and can generate text in the style of Shakespearean dialogue.
+This project involves training the DistilGPT-2 language model on a custom Question & Answer (Q&A) dataset generated from a CSV file containing grades. The model is trained to understand and generate specific answers based on queries related to the students' data, such as first names, Social Security Numbers (SSNs), test scores, and final grades. The fine-tuned model is then pushed to Hugging Face and deployed using a Streamlit interface.
 
 ## How It Works
-1. **Dataset Preparation:**
+1. Loading the Dataset
+We start by loading the Grades.csv file using the pandas library. This CSV file contains various columns such as First name, Last name, SSN, Test1, Grade, etc.
 
-We start by loading the dataset named "Grades.csv" from the Pandas library. This dataset contains relevant data that we will use to fine-tune the Distill GPT-2 model.
 ```python
 csv_file = 'grades.csv'  
 df = pd.read_csv(csv_file)
 ```
-2. **Data Preprocessing:**
+2. **Creating Q&A Pairs**
+For each row in the dataset, we generate multiple Q&A pairs. Each pair consists of a question related to the student's data and the corresponding answer. This helps in creating a diverse set of training examples for the model.
 
-We preprocess the data by tokenizing the text and padding it to a fixed length. Tokenization converts the text into a format that the GPT-2 model can understand, padding ensures that all sequences are the same length for efficient processing.
+3. **Preprocessing the Data**
 
-3. **Model Training:**
+The data is tokenized using the DistilGPT-2 tokenizer, ensuring that the inputs and outputs are properly padded and truncated for model compatibility.
 
-We use the Hugging Face Trainer API to train the GPT-2 model on the tokenized dataset. The Trainer API simplifies the training process by handling various aspects such as gradient accumulation, mixed precision training, and logging.
+4. **Model Training:**
+
+The DistilGPT-2 model is fine-tuned using the tokenized Q&A dataset. Training configurations, such as learning rate, batch size, and number of epochs, are defined and passed to the `Trainer class` for training.
 ``` python
 from transformers import Trainer, AutoModelForCausalLM
 
-model = AutoModelForCausalLM.from_pretrained("gpt2")
+model = AutoModelForCausalLM.from_pretrained("distilgpt2")
 
 trainer = Trainer(
     model=model,
@@ -30,24 +33,24 @@ trainer = Trainer(
 
 trainer.train()
 ```
-### [Model URL](https://huggingface.co/ahmadmac/Pretrained-GPT2)
+### [Model URL](https://huggingface.co/ahmadmac/DistillGPT2-CSV)
 
-4. **Pushing to Hugging Face Hub:**
+5. **Pushing to Hugging Face Hub:**
 
 After training, we push the model and tokenizer to the Hugging Face Hub. This makes the model accessible to others and allows for easy sharing and deployment.
 
 ```python
-trainer.push_to_hub("Pretrained-GPT2")
-tokenizer.push_to_hub("Pretrained-GPT2")
+trainer.push_to_hub("ahmadmac/DistillGPT2-CSV")
+tokenizer.push_to_hub("ahmadmac/DistillGPT2-CSV")
 ```
 
 5. **Streamlit Interface:**
    
-Deploy a Streamlit interface for generating text using the pretrained GPT-2 model. Streamlit provides an easy way to create web applications, allowing users to interact with the model by entering a prompt and receiving generated text in response.
+Deploy a Streamlit interface for generating text using the pretrained Distill GPT-2 model. Streamlit provides an easy way to create web applications, allowing users to interact with the model by entering a prompt and receiving generated text in response.
 
 6. **Deployement:**
 
-The Streamlit app is deployed on Hugging Face Spaces, making it accessible for users to interact with the GPT-2 model trained on Shakespeare dialogues.
+We use Streamlit to create an interactive interface for the model, where users can input prompts and receive generated text from the fine-tuned DistilGPT-2 model.
 
 ## Files
 - **app.py:** The main Streamlit application file.
