@@ -1,13 +1,13 @@
-## Pretrained GPT-2 on Shakespeare Dialogues
+## Pretrained Distill GPT-2 
 This project demonstrates the process of pretraining a GPT-2 model on a dataset of Shakespeare dialogues, pushing the model to Hugging Face Hub, and deploying a Streamlit interface for text generation. The model `ahmadmac/Pretrained-GPT2` is trained on the `Trelis/tiny-shakespeare` dataset and can generate text in the style of Shakespearean dialogue.
 
 ## How It Works
 1. **Dataset Preparation:**
 
-First, we load the Shakespeare dialogues dataset from the Hugging Face datasets library. This dataset contains text from Shakespeare's content, which we will use to fine-tune the GPT-2 model.
+We start by loading the dataset named "Grades.csv" from the Pandas library. This dataset contains relevant data that we will use to fine-tune the Distill GPT-2 model.
 ```python
-from datasets import load_dataset
-dataset = load_dataset("Trelis/tiny-shakespeare")
+csv_file = 'grades.csv'  
+df = pd.read_csv(csv_file)
 ```
 2. **Data Preprocessing:**
 
